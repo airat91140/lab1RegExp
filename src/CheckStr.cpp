@@ -35,18 +35,20 @@ void lab1::CheckStr::runTiming() {
     steady_clock::duration duration = steady_clock::duration::zero();
     steady_clock::time_point t;
     srand(time(nullptr));
-    for (int l = 1000000; l <= 10000000; l += 500000) {
+    for (int l = 1000; l <= 10000; l += 500) {
         {
             duration = steady_clock::duration::zero();
             str = genAcceptedStr(l);
             t = std::chrono::steady_clock::now();
             this->check(str);
+            this->extractHash(str);
             duration += std::chrono::steady_clock::now() - t;
         }
         {
             str = genInacceptedStr(l);
             t = std::chrono::steady_clock::now();
             this->check(str);
+            this->extractHash(str);
             duration += std::chrono::steady_clock::now() - t;
         }
         std::cout/* << "symbols: " */<< 50 + l * 2 << " "/*" time: "*/ << duration.count() << std::endl;
